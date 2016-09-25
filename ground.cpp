@@ -97,7 +97,7 @@ Ground::~Ground()
 void Ground::RndGroundScaleStepUp()
 {
   // öka markstorleken en level
-  printf("Upsampling... ");
+  cout << "Upsampling... ";
     
   GLfloat* heightsTemp = new GLfloat[(rows*2-1)*(cols*2-1)];
     
@@ -130,21 +130,21 @@ void Ground::RndGroundScaleStepUp()
     RndGroundFixEdge();
   }
   
-  printf("(%d x %d)\n", rows, cols);
+  cout << "(" << rows << " x " << cols << ")\n";
 }
 
 
 
 void Ground::RndGround(GLfloat maxdev, int smoothloops)
 {
-  printf("Randomizing ground...\n");
+  cout << "Randomizing ground...\n";
   // slumpa markhöjd, ej ända ut till kanterna
   for(unsigned int r = 1; r < rows-1; ++r) 
     for(unsigned int k = 1; k < cols-1; ++k)
       heights[r*cols + k] += ((GLfloat) rand())/((GLfloat) RAND_MAX)*maxdev - maxdev/2;
            
     
-  printf("Filtering...\n");        
+  cout << "Filtering...\n";
   // filter
   for(int loops = 1; loops <= smoothloops; loops++)
   {
@@ -164,7 +164,7 @@ void Ground::RndGround(GLfloat maxdev, int smoothloops)
 void Ground::RndGroundTresh(GLfloat level)
 {
   // tröskelsätt mark (allt under en viss nivå sätts till den nivån
-  printf("Treshold...\n");
+  cout << "Treshold...\n";
   for(unsigned int r = 0; r < rows; r++)
     for(unsigned int k = 0; k < cols; k++)
       if (heights[r*cols + k] < level)
@@ -219,8 +219,9 @@ void Ground::RndGroundCalcVertNorm()
     levelIndexOffsets[a+1] = levelIndexOffsets[a] + ((2 << a) + 1) * ((2 << a) + 1);
   }
   
-  printf("Preparing mipmap... (%d levels, %d points)\n Level:", levelCount, levelIndexOffsets[levelCount]);
-  
+  //printf("Preparing mipmap... (%d levels, %d points)\n Level:", levelCount, levelIndexOffsets[levelCount]);
+  cout << "Preparing mipmap... (" << levelCount << " levels, " << levelIndexOffsets[levelCount] << " points)\n Level: ";
+
   // allokera minne för mipmappad data
   GLfloat* mipHeights = new GLfloat[levelIndexOffsets[levelCount]];
   vertices =            new GLfloat[levelIndexOffsets[levelCount]][3];
@@ -238,8 +239,8 @@ void Ground::RndGroundCalcVertNorm()
   }
   
   for (int level = levelCount-1; level >= 0; --level)
-  {
-    printf(" %d", level+1); cout << flush;
+  { 
+    cout << level+1 << flush;
     offset = levelIndexOffsets[level];
     levelSize = (2 << level) + 1;
     
@@ -263,7 +264,7 @@ void Ground::RndGroundCalcVertNorm()
     }
     
 
-    printf("v"); cout << flush;
+    cout << "v" << flush;
     // vertices
     for(unsigned int r = 0; r < levelSize; ++r)
       for(unsigned int k = 0; k < levelSize; ++k)
@@ -275,7 +276,7 @@ void Ground::RndGroundCalcVertNorm()
        
     
     // normals
-    printf("n"); cout << flush;
+    cout << "n " << flush;
     GLfloat  normlen;
 
     conv(&mipHeights[offset], levelSize, ddrFilt, LPFILTRADIUS, dheightdr, 0, 0, levelSize-1, levelSize-1);
@@ -307,7 +308,7 @@ void Ground::RndGroundCalcVertNorm()
   delete[] heights;
   heights = mipHeights;
   
-  printf(" done!\n"); cout << flush;
+  cout << " done!\n" << flush;
 }
 
 

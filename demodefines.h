@@ -2,7 +2,7 @@
 // Kristoffer 2009-04
 
 
-#define WORLD_SIZE 8
+#define WORLD_SIZE 7
 
 // demo-alternativ, för att visa saker som annars inte syns
 

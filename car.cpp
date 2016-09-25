@@ -14,6 +14,7 @@
 
 #include "car.config" // innehåller loadParameters(int carNo)
 #include <iostream>
+#include <iomanip>
 
 
 
@@ -198,7 +199,9 @@ void Car::Animate()
        
   if (++statPrintCount >= 100)
   {
-    printf("FPS min: %1.1f \t FPS max: %1.1f\t StepsPerFrame: %d \n", fpsMin, fpsMax, maxSPF);
+    std::cout << "FPS min: " << std::fixed << std::setprecision(1) << fpsMin 
+              << "\t FPS max: " << std::fixed << std::setprecision(1) << fpsMax
+              << "\t StepsPerFrame " <<  maxSPF << "\n";
     fpsMax = 0;
     fpsMin = 999;
     statPrintCount = 0;
@@ -222,7 +225,7 @@ void Car::Animate()
 
 void Car::move(GLfloat x, GLfloat y, GLfloat z)
 {
-  printf("Moved...\n");
+  std::cout << "Moved...\n";
   position[0] += x;
   position[1] += y;
   position[2] += z;
@@ -243,7 +246,7 @@ void Car::move(GLfloat x, GLfloat y, GLfloat z)
 
 void Car::reset()
 {
-  printf("Reset...\n");
+  std::cout << "Reset...\n";
   position[1] = theGround->Height(position)+4;
     
   posdot[0] = 0;

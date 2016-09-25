@@ -79,9 +79,6 @@ void keyboardpress(unsigned char key, int x, int y)
   GLfloat cx, cy, cphi;
   switch (key)
   { 
-  case 'q': // quit
-    exit(0);
-    break;
   case 'c':  // byt kamera
     theCamera->changeMode();
     break;
@@ -310,10 +307,7 @@ int main(int argc, char *argv[])
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
   glutInitWindowSize(900,900);
   glutCreateWindow("SnowRacer3D");
-  //glutGameModeString( "1024x768:32@60" );
-  //glutEnterGameMode();
-
-    
+  
   srand(time(0));
   
   sysdep = Sysdep::Instance();
@@ -349,9 +343,6 @@ int main(int argc, char *argv[])
   //theCamera->setProjection(-.5/4,-.5/4,.2,480);
   theCamera->setProjection(-.5/4,-.5/4,.2,1480);
   //theCamera->setProjection(-.5,-.5,.8,480);
-  
-
-  
   glutDisplayFunc(display);
   glutMouseFunc(mousepress);
   glutMotionFunc(mousemotion);
